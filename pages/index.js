@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Head from "next/head";
-import { Scissors, Copy } from "react-feather";
+import { Scissors, Copy, RefreshCw } from "react-feather";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 import styles from "../styles/Home.module.css";
+
 
 export default function Home() {
 	const [shortUrl, setShortUrl] = useState(null);
@@ -59,10 +60,10 @@ export default function Home() {
 			</Head>
 
 			<main className={styles.main}>
-				<h1 className={styles.title}>Welcome to URL SHORTNER!</h1>
+				<h1 className={styles.title}>b68dev.xyz | URL Shortner Microservice</h1>
 
-				<div className={styles.card}>
-					<h2>Paste the URL to be Shortened</h2>
+				{!shortUrl && (<div className={styles.card}>
+					<h2>Enter your URL __</h2>
 					<form onSubmit={shortenURl} className="input">
 						<input
 							name="longURL"
@@ -75,8 +76,10 @@ export default function Home() {
 						</button>
 					</form>
 				</div>
-				{shortUrl && (
+				)}
+				{shortUrl && (<>
 					<div className={styles.card}>
+						<h2>Your Shortend URL __</h2>
 						<div className={styles.shortUrl}>
 							<h3>{shortUrl}</h3>
 							<div onClick={copyURL} className="copy">
@@ -84,12 +87,18 @@ export default function Home() {
 							</div>
 						</div>
 					</div>
+
+					<div className={styles.retryButton} onClick={() => setShortUrl(null)}>				
+						<RefreshCw className={styles.retryButtonIcon}/>
+						<span> Retry</span>
+					</div>
+					</>
 				)}
 			</main>
 
 			<footer className={styles.footer}>
 				<p>
-					Made with ♥ by <a href="https://chirag.codes">Chirag Bhalotia</a> and{" "}
+					Made with <span className={styles.love}>♥</span> by <a href="https://chirag.codes">Chirag Bhalotia</a> and{" "}
 					<a href="https://bravo68web.me">Bravo</a>
 				</p>
 			</footer>
